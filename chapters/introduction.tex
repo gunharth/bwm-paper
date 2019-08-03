@@ -13,3 +13,21 @@ What are progressive web apps.
 
 Motivation
 \cite{liebelProgressiveWebApps2019}
+
+\section{Source Code}
+
+\begin{lstlisting}[language=JavaScript, caption=Firebase Auth initiation, label=lst:firebase-auth]
+firebase.auth.onAuthStateChanged(firebaseUser => {
+  if (firebaseUser) {
+    store.dispatch("autoSignIn", firebaseUser);
+  }
+  if (!app) {
+    /* eslint-disable no-new */
+    app = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount("#app");
+  }
+});
+\end{lstlisting}
