@@ -17,7 +17,8 @@ Motivation
 \section{Source Code}
 
 \begin{lstlisting}[language=JavaScript, caption=Firebase Auth initiation, label=lst:firebase-auth]
-firebase.auth.onAuthStateChanged(firebaseUser => {
+// Init firebase auth before Vue inits the App
+  firebase.auth.onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
     store.dispatch("autoSignIn", firebaseUser);
   }
