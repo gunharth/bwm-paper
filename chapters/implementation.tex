@@ -1,0 +1,70 @@
+\chapter{Concepts \& Technical Implementation}
+This chapter provides a detailed look at the required concepts and the technical implementation of the PWA. The project has been open-sourced to allow verification of the results\footnote{https://github.com/gunharth/bwm}. Further, the application is available online\footnote{https://bwm.gunicode.com}.
+
+\section{Requirements}
+
+The following section outlines the concepts and requirements used for the project by looking at the core functionality of the original \textit{Beer with Me} app.
+
+
+\textbf{Progressive Web App}. The functional clone of the \textit{Beer with Me} app must implement all relevant techniques as outlined by the Progressive Web App specifications. Technologies include Service Workers, Application Shell (AppShell), Web App Manifest and serving the demo installation over HTTPS. Further, it is the intention to follow the 10 principal concepts, which lay the foundation for Progressive Web Applications, as closely as possible: Progressive, Responsive, Installable, Connectivity Independent, App-Like, Fresh, Safe, Discoverable, Re-engageable and Linkable \citep{osmaniGettingStartedProgressive2015}.
+
+\textbf{Authentication and Authorization}. Users must be able to register for the service with a combination of E-Mail and Password. As an alternative an existing Google account may be used in order to login directly.
+
+\textbf{Realtime Database}. Data is stored as JSON in a NoSQL database and synchronized in realtime to every connected client.
+
+\textbf{Realtime Notifications}. If enabled by the user Push-notifications shall be sent to the user in realtime, whenever a new user registers for the service, or when a new post was published by a user.
+
+\textbf{Realtime Map}. If enabled by the user the current geolocation of the user is saved and displayed on an online map.
+
+\textbf{Single Page App (SPA)}. As part of this study it was my goal to implement the application as a Single Page App using one of the main JavaScrip frameworks.
+
+Option to add a photo using the device’s camera
+
+
+Frontend, Backend framework/system
+straight forward deployment process
+
+As part of this study the following points were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they support the output of this research. Design considerations of the application can be neglected, nor is the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality, and not to offer a duplication of the original. Further, all functions are implemented as a proof-of-concept. Thus, to make it a production ready PWA certain functionality is not implemented, like the creation of groups. The PWA supports one group only for testing purposes.
+
+
+\section{Technical Implementation}
+As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the front-end of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript. To satisfy the back-end requirements A cloud solution provider
+
+\subsection{JavaScript Frontend Framework}
+
+\subsection{Backend Cloud Provider}
+\textbf{Firebase}. Firebase is a service that Google aquired in 2015 ties in hand in hand with their goal on pushing on
+
+\begin{lstlisting}[language=JavaScript, caption=Firebase Auth initiation, label=lst:firebase-auth]
+  // Init firebase auth before Vue inits the App
+    firebase.auth.onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+      store.dispatch("autoSignIn", firebaseUser);
+    }
+    if (!app) {
+      /* eslint-disable no-new */
+      app = new Vue({
+        router,
+        store,
+        render: h => h(App)
+      }).$mount("#app");
+    }
+  });
+  \end{lstlisting}
+
+Looking at the requirements for the PWA Firebase offers a Realtime Database with Firebase
+
+The Firebase Database offers a realtime Database,
+\begin{lstlisting}[language=JavaScript, caption=Firebase, label=lst:firebase-add]
+firebase.db
+  .collection("drinks")
+  .add({
+    url,
+    comment,
+    author: `${authorNickname != "" ? authorNickname : "Unknow"}`,
+    authorId: authorId,
+    lat: lat,
+    lng: lng,
+    created_at: new Date().getTime()
+  });
+\end{lstlisting}
