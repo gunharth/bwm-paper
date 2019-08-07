@@ -77,10 +77,7 @@ if (process.env.NODE_ENV === "production") {
 }
 \end{lstlisting}
 
-The final lighthouse report for the \textit{Beer with Me PWA}:
-\fig{img/lighthouse_test}{Lighthouse PWA report}{fig:lighthouse}{1}
-
-For the front-end design of the app Vuetify\footnote{\url{https://vuetifyjs.com}} was implemented. A design component framework for Vue.js based on the material design\footnote{\url{https://material.io}} guidelines developed by Google.
+For the front-end design of the app Vuetify\footnote{\url{https://vuetifyjs.com}} was used. Vuetify is a responsive design component framework for Vue.js based on the material design\footnote{\url{https://material.io}} guidelines developed by Google.
 
 \begin{lstlisting}[language=bash, caption=Command to add Vuetify to the Vue.js project, label=lst:vuetify]
   $ vue add vuetify
@@ -114,17 +111,29 @@ The map functionality was implemented by using the npm package vue2-leaflet\foot
     \caption{The map}
     \label{fig:sub2}
   \end{subfigure}
-  \caption{Screenshots showing Vuetifys' material design components}
+  \caption{Screenshots showing Vuetifys' material design components and the map}
   \label{fig:test}
 \end{figure}
+
+Figure 3 shows the Lighthouse\footnote{\url{https://developers.google.com/web/tools/lighthouse}} Progressive Web App report for the \textit{Beer with Me} PWA.
+\fig{img/lighthouse_test}{Lighthouse report}{fig:lighthouse}{1}
 
 
 \subsection{Cloud Provider and Realtime Functionalities}
 
-For the purpose of the backend requirements Firebase was used. Google aquired it in 2015 ...
-The Firebase service offers the following services that are required for the Beer with me project: Authentication and Authorization, Firestore offers a real time database
+To cater for the back-end requirements I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into the other Google cloud aspirations - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
+
+The following section demonstrates the Firebase services used for the \textit{Beer with Me} PWA.
+
+To use Firebase in a project the following steps need to be performed:
+\begin{enumerate}
+  \item Register with Firebase
+  \item Create a project
+\end{enumerate}
 
 Authentication and Authorization
+
+Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google.
 
 \begin{lstlisting}[language=JavaScript, caption=main.js: Firebase Auth initiation using VueJS, label=lst:firebase-auth]
   // Init firebase auth before Vue inits the App
