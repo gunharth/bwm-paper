@@ -135,8 +135,8 @@ Authentication and Authorization
 
 Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google.
 
-\begin{lstlisting}[language=JavaScript, caption=main.js: Firebase Auth initiation using VueJS, label=lst:firebase-auth]
-  // Init firebase auth before Vue inits the App
+\begin{lstlisting}[language=JavaScript, caption=Firebase Auth initiation using VueJS (main.js), label=lst:firebase-auth]
+  // Init Firebase auth before Vue inits the App
   firebase.auth.onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
       store.dispatch("autoSignIn", firebaseUser);
