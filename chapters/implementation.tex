@@ -9,7 +9,7 @@ The following section outlines the concepts and requirements used for the projec
 
 \textbf{Authentication and Authorization}. Users must be able to register for the service with a combination of E-Mail and Password. As an alternative an existing Google account may be used in order to login directly.
 
-\textbf{Realtime Database}. Data is stored as JSON in a NoSQL database and synchronized in realtime to every connected client.
+\textbf{Realtime Database}. Data is stored in a cloud-hosted database and synchronized in realtime to every connected client.
 
 \textbf{Realtime Notifications}. If enabled by the user push-notifications shall be send to the user in realtime, whenever a new user registers for the service or when a new post was published by a user.
 
@@ -23,14 +23,14 @@ Option to add a photo using the device’s camera
 Frontend, Backend framework/system
 straight forward deployment process
 
-The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Hence, design considerations of the application can be neglected, nor is the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, to make it a user centric production ready PWA certain functionality is not implemented, like the creation of groups. The PWA supports one group only for testing purposes.
+The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Hence, design considerations of the application can be neglected, nor is the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, to make it a user centric production ready PWA further development cycles are required.
 
 
 \section{Technical Implementation of Requirements}
-As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the front-end of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript. To satisfy the back-end requirements A cloud solution provider
+As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the front-end of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript in form of the JavaScript framework Vue.js. To satisfy the back-end Firebase was picked as the sole solution provider.
 
 \subsection{Single Page App (SPA) \& Progressive Web App}
-For the development of the frontend the JavaScript framework Vue.js\footnote{\url{https://vuejs.org}} and its ecosystem was used. The Vue Cli\footnote{\url{https://cli.vuejs.org}} offers great tooling support for Vue.js developments - among other it comes with a preset for installing a Progressive Web App skeleton.
+For the development of the frontend the JavaScript framework Vue.js\footnote{\url{https://vuejs.org}} and its ecosystem was used. The Vue Cli\footnote{\url{https://cli.vuejs.org}} offers great tooling support for Vue.js developments - among other features it comes with a preset for installing a Progressive Web App skeleton.
 
 \begin{lstlisting}[language=bash, caption=Installation and project creation commands with the Vue Cli, label=lst:vue-cli]
   $ npm install -g @vue/cli
@@ -41,40 +41,27 @@ On project creation Vue Cli offers you to manually select the features that will
 
 \fig{img/vue_project_creation}{Installation options for a Vue.js project}{fig:vue-project-creation}{1}
 
-The Vue Cli PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-caches, service worker and the creation of the web manifest for a production environment.
+The Vue Cli PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-cache and the App Shell .
 
-\begin{lstlisting}[language=JavaScript, caption=registerServiceWorker.js: Workbox registering the service worker for production, label=lst:workbox]
-import { register } from "register-service-worker";
-if (process.env.NODE_ENV === "production") {
-  register(`${process.env.BASE_URL}firebase-messaging-sw.js`, {
-    ready() {
-      console.log(
-        "App is being served from cache by a service worker.\n" +
-          "For more details, visit https://goo.gl/AFskqB"
-      );
-    },
-    registered() {
-      console.log("Service worker has been registered.");
-    },
-    cached() {
-      console.log("Content has been cached for offline use.");
-    },
-    updatefound() {
-      console.log("New content is downloading.");
-    },
-    updated() {
-      console.log("New content is available; please refresh.");
-    },
-    offline() {
-      console.log(
-        "No internet connection found. App is running in offline mode."
-      );
-    },
-    error(error) {
-      console.error("Error during service worker registration:", error);
-    }
+\begin{lstlisting}[language=JavaScript, caption=Service Worker with Workbox and Firebase specific initiation (firebase-messaging-sw.js), label=lst:serviceworker]
+  importScripts("https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js");
+  importScripts("https://www.gstatic.com/firebasejs/5.6.0/firebase-messaging.js");
+
+  self.__precacheManifest = [].concat(self.__precacheManifest || []);
+  workbox.precaching.suppressWarnings();
+  workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+  workbox.routing.registerRoute(
+    new RegExp(
+      "https://firebasestorage.googleapis.com/v0/b/bmwgunicode.appspot.com/.*"
+    ),
+    workbox.strategies.staleWhileRevalidate()
+  );
+
+  firebase.initializeApp({
+    messagingSenderId: "ID"
   });
-}
+
 \end{lstlisting}
 
 For the front-end design of the app Vuetify\footnote{\url{https://vuetifyjs.com}} was used. Vuetify is a responsive design component framework for Vue.js based on the material design\footnote{\url{https://material.io}} guidelines developed by Google.
@@ -84,6 +71,7 @@ For the front-end design of the app Vuetify\footnote{\url{https://vuetifyjs.com}
 \end{lstlisting}
 
 The map functionality was implemented by using the npm package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
+\\
 
 \begin{figure}
   \centering
@@ -114,6 +102,7 @@ The map functionality was implemented by using the npm package vue2-leaflet\foot
   \caption{Screenshots showing Vuetifys' material design components and the map}
   \label{fig:test}
 \end{figure}
+\pagebreak
 
 Figure 3 shows the Lighthouse\footnote{\url{https://developers.google.com/web/tools/lighthouse}} Progressive Web App report for the \textit{Beer with Me} PWA.
 \fig{img/lighthouse_test}{Lighthouse report}{fig:lighthouse}{1}
@@ -152,6 +141,7 @@ Firebase Auth offers multiple methods to authenticate, including email and passw
 \end{lstlisting}
 
 Realtime Database feeding the feed of posts on the main application page. Map positions
+JSON NoSQL
 
 \begin{lstlisting}[language=JavaScript, caption=Realtime query for new posts (Home.vue), label=lst:firebase-listposts]
 firebase.db
