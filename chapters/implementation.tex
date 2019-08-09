@@ -110,7 +110,7 @@ Figure 3 shows the Lighthouse\footnote{\url{https://developers.google.com/web/to
 
 \subsection{Cloud Provider and Realtime Functionalities}
 
-To cater for the back-end requirements I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into their other Google cloud ambitions - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
+To cater for the back-end requirements I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into their other cloud ambitions - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
 
 The following section demonstrates the Firebase services used for the \textit{Beer with Me} PWA.
 
@@ -120,7 +120,7 @@ To use Firebase in a project the following steps need to be performed:
   \item Create a project
 \end{enumerate}
 
-Authentication and Authorization
+\textbf{Authentication and Authorization}
 
 Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google.
 
@@ -140,7 +140,8 @@ Firebase Auth offers multiple methods to authenticate, including email and passw
   });
 \end{lstlisting}
 
-Realtime Database feeding the feed of posts on the main application page. Map positions
+\textbf{Realtime Database}
+ feeding the feed of posts on the main application page. Map positions
 JSON NoSQL
 
 \begin{lstlisting}[language=JavaScript, caption=Realtime query for new posts (Home.vue), label=lst:firebase-listposts]
@@ -161,6 +162,6 @@ firebase.db
   });
 \end{lstlisting}
 
-Realtime Push Notifications
+\textbf{Realtime Push Notifications}
 
-\textbf{Firebase}. Firebase is a service that Google aquired in 2015 ties in hand in hand with their goal on pushing on
+Firebase Functions
