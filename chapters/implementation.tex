@@ -17,17 +17,13 @@ The following section outlines the concepts and requirements used for the projec
 
 \textbf{Single Page App (SPA)}. The app shall be implemented as a Single Page App with one of the main JavaScript frameworks (React, Angular or Vue.js).
 
-Option to add a photo using the device’s camera
+An additional requirement was intentionally added to round-off PWA specific topics. When posting a new entry a user should be provided with the option to post a photo using the camera of the device.
 
-
-Frontend, Backend framework/system
-straight forward deployment process
-
-The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Hence, design considerations of the application can be neglected, nor is the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, to make it a user centric production ready PWA further development cycles are required.
+The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Hence, design considerations of the application can be neglected, nor is it the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, to make it a user centric production ready PWA further development cycles are required, i.a creating social groups and multi-lingual support.
 
 
 \section{Technical Implementation of Requirements}
-As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the front-end of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript in form of the JavaScript framework Vue.js. To satisfy the back-end Firebase was picked as the sole solution provider.
+As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the frontend of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript in form of the JavaScript framework Vue.js. To satisfy the backend Firebase was picked as the sole solution provider.
 
 \subsection{Single Page App (SPA) \& Progressive Web App}
 For the development of the frontend the JavaScript framework Vue.js\footnote{\url{https://vuejs.org}} and its ecosystem was used. The Vue Cli\footnote{\url{https://cli.vuejs.org}} offers great tooling support for Vue.js developments - among other features it comes with a preset for installing a Progressive Web App skeleton.
@@ -41,7 +37,9 @@ On project creation Vue Cli offers you to manually select the features that will
 
 \fig{img/vue_project_creation}{Installation options for a Vue.js project}{fig:vue-project-creation}{1}
 
-The Vue Cli PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-cache and the App Shell .
+The Vue Cli PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-cache and the application shell (or app shell)\footnote{\url{https://developers.google.com/web/fundamentals/architecture/app-shell}}.
+
+\pagebreak
 
 \begin{lstlisting}[language=JavaScript, caption=Service Worker with Workbox and Firebase specific initiation (firebase-messaging-sw.js), label=lst:serviceworker]
   importScripts("https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js");
@@ -64,14 +62,30 @@ The Vue Cli PWA support comes with Workbox\footnote{\url{https://developers.goog
 
 \end{lstlisting}
 
-For the front-end design of the app Vuetify\footnote{\url{https://vuetifyjs.com}} was used. Vuetify is a responsive design component framework for Vue.js based on the material design\footnote{\url{https://material.io}} guidelines developed by Google.
+For the frontend design of the app Vuetify\footnote{\url{https://vuetifyjs.com}} was used. Vuetify is a responsive design component framework for Vue.js based on the material design\footnote{\url{https://material.io}} guidelines developed by Google.
 
-\begin{lstlisting}[language=bash, caption=Command to add Vuetify to the Vue.js project, label=lst:vuetify]
+\begin{lstlisting}[language=bash, caption=Command to add Vuetify to a Vue.js project, label=lst:vuetify]
   $ vue add vuetify
 \end{lstlisting}
 
-The map functionality was implemented by using the npm package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
-\\
+The map functionality was implemented by using the NPM (Node Package Manager\footnote{\url{https://www.npmjs.com}}) package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
+
+\begin{lstlisting}[language=JavaScript, caption=All final npm dependencies in packages.json, label=lst:packages]
+"dependencies": {
+    "axios": "^0.19.0",
+    "core-js": "^2.6.5",
+    "firebase": "^6.2.2",
+    "leaflet": "^1.5.1",
+    "material-design-icons-iconfont": "^5.0.1",
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.10",
+    "vue-moment": "^4.0.0",
+    "vue-router": "^3.0.3",
+    "vue2-leaflet": "^2.1.1",
+    "vuetify": "^1.5.5",
+    "vuex": "^3.0.1"
+  },
+\end{lstlisting}
 
 \begin{figure}
   \centering
@@ -99,7 +113,7 @@ The map functionality was implemented by using the npm package vue2-leaflet\foot
     \caption{The map}
     \label{fig:sub2}
   \end{subfigure}
-  \caption{Screenshots showing Vuetifys' material design components and the map}
+  \caption{Frontend screenshots showing main app screens, Vuetify material design components and the map.}
   \label{fig:test}
 \end{figure}
 \pagebreak
@@ -110,19 +124,41 @@ Figure 3 shows the Lighthouse\footnote{\url{https://developers.google.com/web/to
 
 \subsection{Cloud Provider and Realtime Functionalities}
 
-To cater for the back-end requirements I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into their other cloud ambitions - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
+For the backend I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into their other cloud ambitions - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
+
+Firebase offers a javascript API which is installed through NPM. The Firebase CLI enables development directly from the command line. All Firebase services can be configured and maintained through the CLI.
+
+\begin{lstlisting}[language=JavaScript, caption=Firebase configuration and services (firebaseConfig.js), label=lst:firebase-conf]
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/messaging";
+import "firebase/storage";
+import "firebase/auth";
+import { config } from "@/firebaseCredentials.js";
+
+firebase.initializeApp(config);
+let db = firebase.firestore();
+db.enablePersistence({ synchronizeTabs: true });
+const storage = firebase.storage();
+let messaging = null;
+if (firebase.messaging.isSupported()) {
+  messaging = firebase.messaging();
+}
+const auth = firebase.auth();
+const socialAuth = firebase.auth;
+export default {
+  db,
+  storage,
+  messaging,
+  auth,
+  socialAuth
+};
+\end{lstlisting}
+
 
 The following section demonstrates the Firebase services used for the \textit{Beer with Me} PWA.
 
-To use Firebase in a project the following steps need to be performed:
-\begin{enumerate}
-  \item Register with Firebase
-  \item Create a project
-\end{enumerate}
-
-\textbf{Authentication and Authorization}
-
-Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google.
+\textbf{Authentication and Authorization}. Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google. It integrates tightly with other Firebase services, and it leverages standards like OAuth 2.0 and OpenID Connect.
 
 \begin{lstlisting}[language=JavaScript, caption=Firebase Auth initiation using VueJS (main.js), label=lst:firebase-auth]
   // Init Firebase auth before Vue inits the App
@@ -140,9 +176,7 @@ Firebase Auth offers multiple methods to authenticate, including email and passw
   });
 \end{lstlisting}
 
-\textbf{Realtime Database}
- feeding the feed of posts on the main application page. Map positions
-JSON NoSQL
+\textbf{Realtime Database}. Firebase offers a realtime Database service with Firestore, which stores and syncs data between users and devices using a cloud-hosted, JSON based NoSQL database. An important feature of Firestore in terms of PWAs is offline support and live synchronization.
 
 \begin{lstlisting}[language=JavaScript, caption=Realtime query for new posts (Home.vue), label=lst:firebase-listposts]
 firebase.db
@@ -162,6 +196,55 @@ firebase.db
   });
 \end{lstlisting}
 
-\textbf{Realtime Push Notifications}
+Photos taken by the user are stored using the Firebase Cloud Storage service, a CDN (Content Delivery Network) driven service by Google tightly integrated with the authentication service. At present there is no offline support available, i.e photos taken offline are not synced to the storage once there is a connection. One solution to this caveat is to save the photo as a base64 encoded string into the Firestore database. Once the actual database query runs Firebase Functions converts the string to an actual image, stores the file to the Firebase Cloud Storage and saves the resulting image reference back into Firestore.
 
-Firebase Functions
+\begin{lstlisting}[language=JavaScript, caption=Store a photo to Firebase Cloud Storage (Camera.vue), label=lst:firebase-photos]
+firebase.storage
+  .ref()
+  .child(`images/picture-${new Date().getTime()}`)
+  .put(blob)
+  .then(res => {
+    res.ref.getDownloadURL().then(pictureUrl => {
+      console.log("File available at", pictureUrl);
+    });
+  })
+\end{lstlisting}
+
+\textbf{Realtime Push Notifications}. The Firebase messaging service in combination with Firebase functions allows to easily listen for hooks to send out push notifications to a single user or a group of users. Firebase Cloud Functions\footnote{\url{https://firebase.google.com/products/functions}} is a dedicated service that seamlessly ties into the other Firebase offerings.
+
+\begin{lstlisting}[language=JavaScript, caption=Firebase Functions calling the messaging service when a new post is created in the Firestore database(functions/index.js), label=lst:firebase-function]
+exports.createDrink = functions.firestore
+.document("drinks/{drinkId}")
+.onCreate(event => {
+  var drink = event.data();
+  console.log(drink.comment);
+  return axios
+    .post(
+      "https://fcm.googleapis.com/fcm/send",
+      {
+        to: "/topics/general",
+        priority: "high",
+        notification: {
+          title: drink.author + " is thirsty!",
+          body: drink.comment || "Join in for a drink",
+          click_action: "https://bwm.gunicode.com",
+          icon: "https://bwm.gunicode.com/img/icons/notification-128x128.png"
+        }
+      }
+});
+\end{lstlisting}
+
+Listing the full integration of Firebase into the is out of the scope of this paper. Refer to the codebase at \url{https://github.com/gunharth/bwm} in the functions folder.
+
+Finally, \textbf{Firebase Hosting} service is used to deploy the demo to \url{https://bwm.gunicode.com}. Using the firebase CLI this is a straight forward process. Once the project is registered as a service through the Firebase CLI new versions of a project can be easily deployed.
+
+\begin{lstlisting}[language=bash, caption=Firebase CLI commands, label=lst:vue-cli]
+  # Install the CLI globally through npm
+  $ npm install -g firebase-tools
+  # login to the firebase service
+  $ firebase login
+  # register a new project with firebase
+  $ firebase init
+  # deploy the project to firebase hosting
+  $ firebase deploy
+\end{lstlisting}
