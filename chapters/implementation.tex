@@ -158,7 +158,7 @@ export default {
 
 The following section demonstrates the Firebase services used for the \textit{Beer with Me} PWA.
 
-\textbf{Authentication and Authorization}. Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google. It integrates tightly with other Firebase services, and it leverages standards like OAuth 2.0 and OpenID Connect.
+\textbf{Authentication and Authorization}. Firebase Auth offers multiple methods to authenticate, including email and password and third-party providers like Google. It integrates tightly with other Firebase services and it leverages standards like OAuth 2.0 and OpenID Connect.
 
 \begin{lstlisting}[language=JavaScript, caption=Firebase Auth initiation using VueJS (main.js), label=lst:firebase-auth]
   // Init Firebase auth before Vue inits the App
@@ -196,7 +196,7 @@ firebase.db
   });
 \end{lstlisting}
 
-Photos taken by the user are stored using the Firebase Cloud Storage service, a CDN (Content Delivery Network) driven service by Google tightly integrated with the authentication service. At present there is no offline support available, i.e photos taken offline are not synced to the storage once there is a connection. One solution to this caveat is to save the photo as a base64 encoded string into the Firestore database. Once the actual database query runs Firebase Functions converts the string to an actual image, stores the file to the Firebase Cloud Storage and saves the resulting image reference back into Firestore.
+Photos taken by the user are stored using the Firebase Cloud Storage service, a CDN (Content Delivery Network) driven service by Google tightly integrated with the authentication service. At present there is no offline support available, i.e photos taken offline are not synced to the storage once there is a connection. One solution to this caveat is to save the photo as a base64 encoded string into the Firestore database. Once the actual database query runs, Firebase Functions converts the string to an actual image, stores the file to the Firebase Cloud Storage and saves the resulting image reference back into Firestore.
 
 \begin{lstlisting}[language=JavaScript, caption=Store a photo to Firebase Cloud Storage (Camera.vue), label=lst:firebase-photos]
 firebase.storage
