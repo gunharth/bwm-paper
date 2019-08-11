@@ -5,7 +5,7 @@ This chapter provides a detailed look at the required concepts and the technical
 
 The following section outlines the concepts and requirements used for the project by looking at the core functionality of the original \textit{Beer with Me} app.
 
-\textbf{Progressive Web App}. The functional clone of the \textit{Beer with Me} app must implement all relevant techniques as outlined by the Progressive Web App specifications. Technologies include Service Workers, Application Shell (AppShell), Web App Manifest and serving the demo installation over HTTPS. Further, it is the intention to follow the 10 principal concepts, which lay the foundation for Progressive Web Applications, as closely as possible: Progressive, Responsive, Installable, Connectivity Independent, App-Like, Fresh, Safe, Discoverable, Re-engageable and Linkable \citep{osmaniGettingStartedProgressive2015}.
+\textbf{Progressive Web App}. The functional clone of the \textit{Beer with Me} app must implement all relevant techniques as outlined by the Progressive Web App specifications. Technologies include Service Workers, Application Shell (AppShell)\footnote{\url{https://developers.google.com/web/fundamentals/architecture/app-shell}}, Web App Manifest and serving the demo installation over HTTPS. Further, it is the intention to follow the 10 principal concepts, which lay the foundation for Progressive Web Applications, as closely as possible: Progressive, Responsive, Installable, Connectivity Independent, App-Like, Fresh, Safe, Discoverable, Re-engageable and Linkable \citep{osmaniGettingStartedProgressive2015}.
 
 \textbf{Authentication and Authorization}. Users must be able to register for the service with a combination of E-Mail and Password. As an alternative an existing Google account may be used in order to login directly.
 
@@ -15,29 +15,29 @@ The following section outlines the concepts and requirements used for the projec
 
 \textbf{Realtime Map}. If enabled by the user his/her current geolocation is saved and displayed on an online map.
 
-\textbf{Single Page App (SPA)}. The app shall be implemented as a Single Page App with one of the main JavaScript frameworks (React, Angular or Vue.js).
+\textbf{Single Page App (SPA)}. The app is to be implemented as a Single Page App with one of the main JavaScript frameworks (React, Angular or Vue.js).
 
 An additional requirement was intentionally added to round-off PWA specific topics. When posting a new entry a user should be provided with the option to post a photo using the camera of the device.
 
-The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Hence, design considerations of the application can be neglected, nor is it the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, to make it a user centric production ready PWA further development cycles are required, i.a creating social groups and multi-lingual support.
+The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Design considerations for the application are neglected; it is not the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, in order to make it a user centric production ready PWA further development cycles are required, i.a creating social groups and adding multilingual support.
 
 
 \section{Technical Implementation of Requirements}
 As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the frontend of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript in form of the JavaScript framework Vue.js. To satisfy the backend Firebase was picked as the sole solution provider.
 
 \subsection{Single Page App (SPA) \& Progressive Web App}
-For the development of the frontend the JavaScript framework Vue.js\footnote{\url{https://vuejs.org}} and its ecosystem was used. The Vue Cli\footnote{\url{https://cli.vuejs.org}} offers great tooling support for Vue.js developments - among other features it comes with a preset for installing a Progressive Web App skeleton.
+For the development of the frontend the JavaScript framework Vue.js\footnote{\url{https://vuejs.org}} and its ecosystem was used. The Vue CLI\footnote{\url{https://cli.vuejs.org}} offers great tooling support for Vue.js developments - among other features it comes with a preset for installing a Progressive Web App skeleton.
 
 \begin{lstlisting}[language=bash, caption=Installation and project creation commands with the Vue Cli, label=lst:vue-cli]
   $ npm install -g @vue/cli
   $ vue create beerwithme
 \end{lstlisting}
 
-On project creation Vue Cli offers you to manually select the features that will be installed. Next to Progressive Web Application support the Vue Router and Vuex was installed. The Router enables navigation services within a SPA and Vuex is responsible for the management of state within the application.
+On project creation Vue CLI offers you to manually select the features that will be installed. Next to Progressive Web Application support the Vue Router and Vuex was installed. The Router enables navigation services within a SPA and Vuex is responsible for the management of state within the application.
 
 \fig{img/vue_project_creation}{Installation options for a Vue.js project}{fig:vue-project-creation}{1}
 
-The Vue Cli PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-cache and the application shell (or app shell)\footnote{\url{https://developers.google.com/web/fundamentals/architecture/app-shell}}.
+The Vue CLI PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-cache and the application shell.
 
 \pagebreak
 
@@ -68,7 +68,7 @@ For the frontend design of the app Vuetify\footnote{\url{https://vuetifyjs.com}}
   $ vue add vuetify
 \end{lstlisting}
 
-The map functionality was implemented by using the NPM (Node Package Manager\footnote{\url{https://www.npmjs.com}}) package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
+The map functionality was implemented by using the npm (Node Package Manager\footnote{\url{https://www.npmjs.com}}) package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
 
 \begin{lstlisting}[language=JavaScript, caption=All final npm dependencies in packages.json, label=lst:packages]
 "dependencies": {
@@ -126,7 +126,7 @@ Figure 3 shows the Lighthouse\footnote{\url{https://developers.google.com/web/to
 
 For the backend I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into their other cloud ambitions - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
 
-Firebase offers a javascript API which is installed through NPM. The Firebase CLI enables development directly from the command line. All Firebase services can be configured and maintained through the CLI.
+Firebase offers a javascript API which is installed through npm. The Firebase CLI enables development directly from the command line. All Firebase services can be configured and maintained through the CLI.
 
 \begin{lstlisting}[language=JavaScript, caption=Firebase configuration and services (firebaseConfig.js), label=lst:firebase-conf]
 import firebase from "firebase/app";
@@ -210,7 +210,7 @@ firebase.storage
   })
 \end{lstlisting}
 
-\textbf{Realtime Push Notifications}. The Firebase messaging service in combination with Firebase functions allows to easily listen for hooks to send out push notifications to a single user or a group of users. Firebase Cloud Functions\footnote{\url{https://firebase.google.com/products/functions}} is a dedicated service that seamlessly ties into the other Firebase offerings.
+\textbf{Realtime Push Notifications}. The Firebase Cloud Messaging\footnote{\url{https://firebase.google.com/docs/cloud-messaging}} (FCM) service in combination with Firebase Cloud Functions\footnote{\url{https://firebase.google.com/products/functions}} allows to listen for events to send out push notifications to a single user or a group of users.  Functions is a dedicated service that seamlessly ties into the other Firebase offerings.
 
 \begin{lstlisting}[language=JavaScript, caption=Firebase Functions calling the messaging service when a new post is created in the Firestore database(functions/index.js), label=lst:firebase-function]
 exports.createDrink = functions.firestore
@@ -234,7 +234,7 @@ exports.createDrink = functions.firestore
 });
 \end{lstlisting}
 
-Listing the full integration of Firebase into the is out of the scope of this paper. Refer to the codebase at \url{https://github.com/gunharth/bwm} in the functions folder.
+Listing the full integration of Firebase Functions into the \textit{Beer with Me} PWA is beyond the scope of this paper. Refer to the codebase at \url{https://github.com/gunharth/bwm} in the functions folder and the relevant sections of the Firebase documentation for messaging\footnote{\url{https://firebase.google.com/docs/cloud-messaging}} and functions\footnote{\url{https://firebase.google.com/docs/function}}
 
 Finally, \textbf{Firebase Hosting} service is used to deploy the demo to \url{https://bwm.gunicode.com}. Using the firebase CLI this is a straight forward process. Once the project is registered as a service through the Firebase CLI new versions of a project can be easily deployed.
 
