@@ -3,9 +3,9 @@ This chapter provides a detailed look at the required concepts and the technical
 
 \section{Requirements}
 
-The following section outlines the concepts and requirements used for the project by looking at the core functionality of the original \textit{Beer with Me} app.
+The following section outlines the concepts and requirements used for the project by looking at the core functionalities of the original \textit{Beer with Me} app.
 
-\textbf{Progressive Web App}. The functional clone of the \textit{Beer with Me} app must implement all relevant techniques as outlined by the Progressive Web App specifications. Technologies include Service Workers, Application Shell (AppShell)\footnote{\url{https://developers.google.com/web/fundamentals/architecture/app-shell}}, Web App Manifest and serving the demo installation over HTTPS. Further, it is the intention to follow the 10 principal concepts, which lay the foundation for Progressive Web Applications, as closely as possible: Progressive, Responsive, Installable, Connectivity Independent, App-Like, Fresh, Safe, Discoverable, Re-engageable and Linkable \citep{osmaniGettingStartedProgressive2015}.
+\textbf{Progressive Web App}. The functional clone of the \textit{Beer with Me} app must implement all relevant techniques as outlined by the Progressive Web App specifications. Technologies include Service Workers\footnote{\url{https://developers.google.com/web/fundamentals/primers/service-workers}}, Application Shell (AppShell)\footnote{\url{https://developers.google.com/web/fundamentals/architecture/app-shell}}, Web App Manifest\footnote{\url{https://developers.google.com/web/fundamentals/web-app-manifest}} and serving the demo installation over HTTPS. Further, it is the intention to follow the 10 principal concepts, which lay the foundation for Progressive Web Applications, as closely as possible: Progressive, Responsive, Installable, Connectivity Independent, App-Like, Fresh, Safe, Discoverable, Re-engageable and Linkable \citep{osmaniGettingStartedProgressive2015}.
 
 \textbf{Authentication and Authorization}. Users must be able to register for the service with a combination of E-Mail and Password. As an alternative an existing Google account may be used in order to login directly.
 
@@ -19,11 +19,11 @@ The following section outlines the concepts and requirements used for the projec
 
 An additional requirement was intentionally added to round-off PWA specific topics. When posting a new entry, a user should be provided with the option to post a photo using the camera of the device.
 
-The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Design considerations for the application are neglected; it is not the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, in order to make it a user centric production ready PWA further development cycles are required, i.e. creating social groups and adding multilingual support.
+The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Design considerations for the application are neglected; it is not the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of functionalities and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, in order to make it a user centric production ready PWA further development cycles are required, e.g error handling, support for user groups and multilingual features.
 
 
 \section{Technical Implementation of Requirements}
-As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages. Hence, the frontend of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript in form of the JavaScript framework Vue.js. To satisfy the backend Firebase was picked as the sole solution provider.
+As per the actual implementation of the PWA the goal was to base the solution on the least different providers on the one hand, as well as a minimum in terms of coding and programming languages on the other. Hence, the frontend of the application uses the basic building blocks of regular web sites being HTML, CSS and JavaScript in form of the JavaScript framework Vue.js. To satisfy the backend Firebase was picked as the sole solution provider.
 
 \subsection{Single Page App (SPA) \& Progressive Web App}
 For the development of the frontend the JavaScript framework Vue.js\footnote{\url{https://vuejs.org}} and its ecosystem was used. The Vue CLI\footnote{\url{https://cli.vuejs.org}} offers great tooling support for Vue.js developments - among other features it comes with a preset for installing a Progressive Web App skeleton.
@@ -35,9 +35,9 @@ For the development of the frontend the JavaScript framework Vue.js\footnote{\ur
 
 On project creation Vue CLI offers you to manually select the features that will be installed. Next to Progressive Web Application support the Vue Router and Vuex was installed. The Router enables navigation services within a SPA and Vuex is responsible for the management of state within the application.
 
-\fig{img/vue_project_creation}{Installation options for a Vue.js project}{fig:vue-project-creation}{1}
+\fig{img/vue_project_creation}{Vue CLI options on project creation.}{fig:vue-project-creation}{1}
 
-The Vue CLI PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application pre-cache and the application shell.
+The Vue CLI PWA support comes with Workbox\footnote{\url{https://developers.google.com/web/tools/workbox}} installed - a library developed by Google for adding offline support to web applications. Among other features it mainly helps with the automatic creation and management of application precache and the application shell.
 
 \pagebreak
 
