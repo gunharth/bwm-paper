@@ -11,15 +11,15 @@ The following section outlines the concepts and requirements used for the projec
 
 \textbf{Realtime Database}. Data is stored in a cloud-hosted database and synchronized in realtime to every connected client.
 
-\textbf{Realtime Notifications}. If enabled by the user push-notifications shall be send to the user in realtime, whenever a new user registers for the service or when a new post was published by a user.
+\textbf{Realtime Notifications}. If enabled by the user, push-notifications shall be send to the user in realtime, whenever a new user registers for the service or when a new post was published by a user.
 
-\textbf{Realtime Map}. If enabled by the user his/her current geolocation is saved and displayed on an online map.
+\textbf{Realtime Map}. If enabled by the user, his/her current geolocation is saved and displayed on an online map.
 
 \textbf{Single Page App (SPA)}. The app is to be implemented as a Single Page App with one of the main JavaScript frameworks (React, Angular or Vue.js).
 
-An additional requirement was intentionally added to round-off PWA specific topics. When posting a new entry a user should be provided with the option to post a photo using the camera of the device.
+An additional requirement was intentionally added to round-off PWA specific topics. When posting a new entry, a user should be provided with the option to post a photo using the camera of the device.
 
-The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Design considerations for the application are neglected; it is not the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, in order to make it a user centric production ready PWA further development cycles are required, i.a creating social groups and adding multilingual support.
+The following topics were defined as being not part of the requirements, as they do not have an impact on the used technologies of the PWA, nor do they have an effect on the results of this study. Design considerations for the application are neglected; it is not the intention to copy the interface and design of the original \textit{Beer with Me} app. The resulting PWA focusses on the implementation of the functionality and not on offering a identical clone of the original. Further, all functions are implemented as a proof-of-concept following the MVP spirit \citep{wikipediaMinimumViableProduct2019}. Thus, in order to make it a user centric production ready PWA further development cycles are required, i.e. creating social groups and adding multilingual support.
 
 
 \section{Technical Implementation of Requirements}
@@ -68,7 +68,7 @@ For the frontend design of the app Vuetify\footnote{\url{https://vuetifyjs.com}}
   $ vue add vuetify
 \end{lstlisting}
 
-The map functionality was implemented by using the npm (Node Package Manager\footnote{\url{https://www.npmjs.com}}) package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
+The map functionality was implemented by using the npm (Node Package Manager)\footnote{\url{https://www.npmjs.com}} package vue2-leaflet\footnote{\url{https://www.npmjs.com/package/vue2-leaflet}}, which is a Vue wrapper library for the open-source JavaScript library Leaflet\footnote{\url{https://leafletjs.com}}. Map tiles are served from OpenStreetMap\footnote{\url{https://www.openstreetmap.org}}.
 
 \begin{lstlisting}[language=JavaScript, caption=All final npm dependencies in packages.json, label=lst:packages]
 "dependencies": {
@@ -126,7 +126,7 @@ Figure 3 shows the Lighthouse\footnote{\url{https://developers.google.com/web/to
 
 For the backend I picked Firebase\footnote{\url{https://firebase.google.com}} as the provider. Around the same time in 2015, when the term Progressive Web Apps was born, Google acquired this San Francisco start-up. Since then Google has expanded upon the original service and integrated it closely into their other cloud ambitions - whereby the Firebase service is dedicated to providing a specialized Platform as a Service (PaaS) for mobile and web applications.
 
-Firebase offers a javascript API which is installed through npm. The Firebase CLI enables development directly from the command line. All Firebase services can be configured and maintained through the CLI.
+Firebase offers a JavaScript API which is installed through npm. The Firebase CLI enables development directly from the command line. All Firebase services can be configured and maintained through the CLI.
 
 \begin{lstlisting}[language=JavaScript, caption=Firebase configuration and services (firebaseConfig.js), label=lst:firebase-conf]
 import firebase from "firebase/app";
